@@ -63,6 +63,11 @@
                             <artifactId>studyaem.core</artifactId>
                             <target>/apps/studyaem/install</target>
                         </embedded>
+                        <embedded>
+                            <groupId>loc.stalex.studyaem</groupId>
+                            <artifactId>studyaem.coreconsumer1</artifactId>
+                            <target>/apps/studyaem/install</target>
+                        </embedded>
                     </embeddeds>
                     <subPackages>
                         <subPackage>
@@ -102,6 +107,11 @@
         <dependency>
             <groupId>loc.stalex.studyaem</groupId>
             <artifactId>studyaem.core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>loc.stalex.studyaem</groupId>
+            <artifactId>studyaem.coreconsumer1</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 

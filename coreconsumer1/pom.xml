@@ -23,9 +23,9 @@
         <version>1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>studyaem.core</artifactId>
+    <artifactId>studyaem.coreconsumer1</artifactId>
     <packaging>bundle</packaging>
-    <name>studyaem - Core</name>
+    <name>studyaem - Core Consumer</name>
     <description>Core bundle for studyaem</description>
     <build>
         <plugins>
@@ -75,9 +75,6 @@
                             <!-- Allow the processing of SCR annotations via a bnd plugin -->
                             org.apache.felix.scrplugin.bnd.SCRDescriptorBndPlugin;destdir=${project.build.outputDirectory}
                         </_plugin>
-                        <Embeded-Dependency>commons-dbutils;scope=compile</Embeded-Dependency>
-                        <Embeded-Directory>OSGI-INF/lib</Embeded-Directory>
-                        <_exportcontents>org.apache.commons.dbutils</_exportcontents>
                     </instructions>
                 </configuration>
                 <dependencies>
@@ -103,9 +100,9 @@
     <dependencies>
         <!-- OSGi Dependencies -->
         <dependency>
-            <groupId>commons-dbutils</groupId>
-            <artifactId>commons-dbutils</artifactId>
-            <version>1.7</version>
+            <groupId>loc.stalex.studyaem</groupId>
+            <artifactId>studyaem.core</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.osgi</groupId>
