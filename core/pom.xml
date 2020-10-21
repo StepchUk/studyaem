@@ -75,6 +75,7 @@
                             <!-- Allow the processing of SCR annotations via a bnd plugin -->
                             org.apache.felix.scrplugin.bnd.SCRDescriptorBndPlugin;destdir=${project.build.outputDirectory}
                         </_plugin>
+                        <Bundle-Activator>loc.stalex.studyaem.core.stringgen.DemoBundleActivator</Bundle-Activator>
                     </instructions>
                 </configuration>
                 <dependencies>
@@ -99,12 +100,6 @@
 
     <dependencies>
         <!-- OSGi Dependencies -->
-        <dependency>
-            <groupId>commons-dbutils</groupId>
-            <artifactId>commons-dbutils</artifactId>
-            <version>1.7</version>
-            <scope>provided</scope>
-        </dependency>
         <dependency>
             <groupId>org.osgi</groupId>
             <artifactId>osgi.core</artifactId>
