@@ -65,7 +65,7 @@
                             *
                         </Import-Package>
                         <Sling-Model-Packages>
-                            loc.stalex.studyaem.core
+                            loc.stalex.studyaem.coreconsumer
                         </Sling-Model-Packages>
                         <_dsannotations>*</_dsannotations>
                         <_metatypeannotations>*</_metatypeannotations>

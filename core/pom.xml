@@ -75,9 +75,6 @@
                             <!-- Allow the processing of SCR annotations via a bnd plugin -->
                             org.apache.felix.scrplugin.bnd.SCRDescriptorBndPlugin;destdir=${project.build.outputDirectory}
                         </_plugin>
-                        <Embeded-Dependency>commons-dbutils;scope=compile</Embeded-Dependency>
-                        <Embeded-Directory>OSGI-INF/lib</Embeded-Directory>
-                        <_exportcontents>org.apache.commons.dbutils</_exportcontents>
                     </instructions>
                 </configuration>
                 <dependencies>
@@ -106,6 +103,7 @@
             <groupId>commons-dbutils</groupId>
             <artifactId>commons-dbutils</artifactId>
             <version>1.7</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.osgi</groupId>
