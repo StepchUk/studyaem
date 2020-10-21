@@ -12,9 +12,9 @@ public class DemoBundleActivator implements BundleActivator {
 
     @Override
     public void start(BundleContext bundleContext) throws Exception {
-        logger.error("Starting activation");
-        TimeUnit.SECONDS.sleep(30);
-        logger.error("Activation performed");
+//        logger.error("Starting activation");
+//        TimeUnit.SECONDS.sleep(30);
+//        logger.error("Activation performed");
     }
 
     @Override
