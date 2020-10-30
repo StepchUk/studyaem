@@ -1,6 +1,7 @@
 package loc.stalex.studyaem.core.models;
 
 import loc.stalex.studyaem.core.services.QueryBuilderSearch;
+import loc.stalex.studyaem.core.services.QueryManagerSearch;
 import loc.stalex.studyaem.core.services.QuerySearchType;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Model;
@@ -13,7 +14,9 @@ import javax.inject.Inject;
 public class QueryModel {
 
     @Inject
-    private QueryBuilderSearch querySearchType;
+    private QueryManagerSearch querySearchType;
+//    private QueryBuilderSearch querySearchType;
+//    private QuerySearchType querySearchType;
 
     @Inject
     @Optional
