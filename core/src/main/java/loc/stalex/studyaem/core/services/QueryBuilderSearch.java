@@ -5,8 +5,7 @@ import com.day.cq.search.Query;
 import com.day.cq.search.QueryBuilder;
 import com.day.cq.search.result.Hit;
 import com.day.cq.search.result.SearchResult;
-import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.api.resource.ResourceResolverFactory;
+import org.apache.sling.jcr.api.SlingRepository;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
@@ -22,7 +21,7 @@ public class QueryBuilderSearch implements QuerySearchType {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Reference
-    private ResourceResolverFactory resolverFactory;
+    SlingRepository repository;
 
     @Reference
     private QueryBuilder builder;
@@ -32,8 +31,7 @@ public class QueryBuilderSearch implements QuerySearchType {
         StringBuilder stringBuilder = new StringBuilder();
 
         try {
-            ResourceResolver resourceResolver = resolverFactory.getServiceResourceResolver(null);
-            Session session = resourceResolver.adaptTo(Session.class);
+            Session session = repository.loginService("testwritelistener", null);
 
             Map<String, String> map = new HashMap<>();
 
@@ -49,7 +47,7 @@ public class QueryBuilderSearch implements QuerySearchType {
 
             for (Hit hit : result.getHits()) {
                 stringBuilder.append("Name: ").append(hit.getTitle()).append(" ")
-                        .append("Path: ").append(hit.getPath()).append("<br />");
+                        .append("Path: ").append(hit.getPath());
             }
         } catch (Exception e) {
             log.debug("QueryBuilderSearch: {}", e.getMessage());
