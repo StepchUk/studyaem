@@ -1,5 +1,6 @@
 package loc.stalex.studyaem.core.listeners;
 
+import com.day.cq.commons.jcr.JcrUtil;
 import org.apache.sling.jcr.api.SlingRepository;
 import org.osgi.service.component.ComponentContext;
 import org.osgi.service.component.annotations.Component;
@@ -15,6 +16,7 @@ import javax.jcr.nodetype.NodeType;
 import javax.jcr.observation.Event;
 import javax.jcr.observation.EventIterator;
 import javax.jcr.observation.EventListener;
+import java.util.UUID;
 
 @Component(immediate = true, service = EventListener.class)
 public class RemovedPropertyResourceListener implements EventListener {
@@ -49,23 +51,23 @@ public class RemovedPropertyResourceListener implements EventListener {
     @Override
     public void onEvent(EventIterator eventIterator) {
         try {
+            String nodePath = "var/log/removedProperties";
+            Node rootNode = adminSession.getRootNode();
+
+            Node removedPropertyNode = rootNode.hasNode(nodePath) ?
+                    rootNode.getNode(nodePath) :
+                    JcrUtil.createPath(rootNode.getPath() + nodePath, "sling:Folder", adminSession);
+
             while (eventIterator.hasNext()) {
-                Node varNode = adminSession.getNode("/var");
+                Event event = eventIterator.nextEvent();
+                String propertyPath = event.getPath();
 
-                String nodePath = "log/removedProperties";
-
-                log.debug("Node exist: {}", varNode.hasNode(nodePath));
-
-                if (!varNode.hasNode(nodePath)) {
-                    Node logNode = varNode.addNode("log", NodeType.NT_FOLDER);
-                    logNode.addNode("removedProperties", NodeType.NT_FOLDER);
-                }
-
-                //TODO: add method for generation random numbers for name
-                Node removedNode = varNode.getNode(nodePath).addNode(eventIterator.nextEvent().getIdentifier());
-
-                log.debug("removed property: identifier - {}; path : {}. Node exist: {}", eventIterator.nextEvent().getIdentifier(), eventIterator.nextEvent().getPath(), varNode.hasNode(nodePath));
+                Node newNode = removedPropertyNode.addNode(getUniqueName(), NodeType.NT_UNSTRUCTURED);
+                newNode.setProperty("propertyName", getPropertyName(propertyPath));
+                newNode.setProperty("propertyPath", propertyPath);
             }
+
+            adminSession.save();
         } catch (RepositoryException e) {
             log.debug("something wrong in RemovedPropertyResourceListener {}", e.getMessage());
         }
@@ -76,5 +78,13 @@ public class RemovedPropertyResourceListener implements EventListener {
         if (adminSession != null) {
             adminSession.logout();
         }
+    }
+
+    private String getUniqueName() {
+        return UUID.randomUUID().toString();
+    }
+
+    private String getPropertyName(String propertyPath) {
+        return propertyPath.substring(propertyPath.lastIndexOf("/") + 1);
     }
 }
