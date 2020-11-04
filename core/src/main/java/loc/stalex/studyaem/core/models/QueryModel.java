@@ -1,7 +1,5 @@
 package loc.stalex.studyaem.core.models;
 
-import loc.stalex.studyaem.core.services.QueryBuilderSearch;
-import loc.stalex.studyaem.core.services.QueryManagerSearch;
 import loc.stalex.studyaem.core.services.QuerySearchType;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Model;
@@ -14,9 +12,7 @@ import javax.inject.Inject;
 public class QueryModel {
 
     @Inject
-    private QueryManagerSearch querySearchType;
-//    private QueryBuilderSearch querySearchType;
-//    private QuerySearchType querySearchType;
+    private QuerySearchType querySearchType;
 
     @Inject
     @Optional
@@ -37,7 +33,13 @@ public class QueryModel {
         if (searchPath == null || searchText == null) {
             searchResult = "Nothing was found";
         } else {
-            searchResult = querySearchType.executeQuery(searchPath, searchText);
+            if ("querymanager".equals(queryType)) {
+                searchResult = querySearchType.queryManagerSearch(searchPath, searchText);
+            }
+
+            if ("querybuilder".equals(queryType)) {
+                searchResult = querySearchType.queryBuilderSearch(searchPath, searchText);
+            }
         }
     }
 
